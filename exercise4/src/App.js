@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-const value1 = Math.floor(Math.random() * 100);
-const value2 = Math.floor(Math.random() * 100);
-const value3 = Math.floor(Math.random() * 100);
-const proposedAnswer = Math.floor(Math.random() * 3) + value1 + value2 + value3;
-const numQuestions = 0;
-const numCorrect = 0;
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Game from "./Game";
 
 class App extends Component {
+  state = {
+    numQuestions: 0,
+    numCorrect: 0
+  };
+
   render() {
     return (
       <div className="App">
@@ -19,18 +18,27 @@ class App extends Component {
         </header>
         <div className="game">
           <h2>Mental Math</h2>
-          <div className="equation">
-            <p className="text">{`${value1} + ${value2} + ${value3} = ${proposedAnswer}`}</p>
-          </div>
-          <button>True</button>
-          <button>False</button>
-          <p className="text">
-            Your Score: {numCorrect}/{numQuestions}
-          </p>
+          <Game updateStats={this.updateStats} />
         </div>
+        <p className="text">
+          Your Score: {this.state.numCorrect}/{this.state.numQuestions}
+        </p>
       </div>
     );
   }
+
+  updateStats = answer => {
+    if (answer === true) {
+      this.setState(prevState => ({
+        numQuestions: prevState.numQuestions + 1,
+        numCorrect: prevState.numCorrect + 1
+      }));
+    } else {
+      this.setState(prevState => ({
+        numQuestions: prevState.numQuestions + 1
+      }));
+    }
+  };
 }
 
 export default App;
