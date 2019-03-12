@@ -16,6 +16,16 @@ class ListContacts extends Component {
   };
 
   render() {
+    const { query } = this.state;
+    const { contacts } = this.props;
+
+    const matchingContacts =
+      query === ""
+        ? contacts
+        : contacts.filter(contact =>
+            contact.name.toLowerCase().includes(query.toLowerCase())
+          );
+
     return (
       <div className="list-contacts">
         <div className="list-contacts-top">
@@ -23,12 +33,12 @@ class ListContacts extends Component {
             className="search-contacts"
             type="text"
             placeholder="Search contacts"
-            value={this.state.query}
+            value={query}
             onChange={event => this.updateQuery(event.target.value)}
           />
         </div>
         <ol className="contact-list">
-          {this.props.contacts.map(contact => (
+          {matchingContacts.map(contact => (
             <li key={contact.id} className="contact-list-item">
               <div
                 className="contact-avatar"
