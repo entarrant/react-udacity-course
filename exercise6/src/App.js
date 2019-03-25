@@ -34,10 +34,10 @@ class App extends React.Component {
         </header>
         <h2>Shopping List</h2>
         <AddItem addItem={this.addItem} />
-
-        <button onClick={this.deleteLastItem} disabled={this.noItemsFound()}>
-          Delete Last Item
-        </button>
+        <RemoveItem
+          deleteLastItem={this.deleteLastItem}
+          noItemsFound={this.noItemsFound}
+        />
 
         <p className="items">Items</p>
         <ol className="item-list">
