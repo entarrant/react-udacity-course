@@ -46,6 +46,12 @@ class App extends Component {
     }
   };
 
+  toggleView = () => {
+    this.setState(previousState => ({
+      showGamesPlayed: !previousState.showGamesPlayed
+    }));
+  };
+
   render() {
     return (
       <div className="App">
@@ -54,7 +60,10 @@ class App extends Component {
           <h1 className="App-title">ReactND - Coding Practice</h1>
         </header>
 
-        {/* <ToggleDisplay showGamesPlayed={this.state.showGamesPlayed} /> */}
+        <ToggleDisplay
+          toggleView={this.toggleView}
+          showGamesPlayed={this.state.showGamesPlayed}
+        />
         <AddUser addNewUser={this.addNewUser} />
         {/* <UserList
           userList={this.state.userList}
