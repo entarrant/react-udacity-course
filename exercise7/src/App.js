@@ -65,10 +65,10 @@ class App extends Component {
           showGamesPlayed={this.state.showGamesPlayed}
         />
         <AddUser addNewUser={this.addNewUser} />
-        {/* <UserList
+        <UserList
           userList={this.state.userList}
           showGamesPlayed={this.state.showGamesPlayed}
-        /> */}
+        />
       </div>
     );
   }
