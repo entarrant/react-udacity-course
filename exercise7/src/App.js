@@ -1,6 +1,10 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+
+import AddUser from "./AddUser";
+import ToggleDisplay from "./ToggleDisplay";
+import UserList from "./UserList";
 
 /*
 This exercise will help you put together and practice all of the concepts you've
@@ -11,6 +15,37 @@ The instructions for this project are located in the `instructions.md` file.
 */
 
 class App extends Component {
+  state = {
+    showErrorMessage: false,
+    showGamesPlayed: true,
+    userList: []
+  };
+
+  nameUnique = userName => {
+    let unique = true;
+    this.state.userList.forEach(user => {
+      if (user.userName === userName) {
+        unique = false;
+      }
+    });
+    return unique;
+  };
+
+  addNewUser = (userName, gamesPlayed) => {
+    const unique = this.nameUnique(userName);
+
+    if (unique) {
+      this.setState(previousState => ({
+        userList: [
+          ...previousState.userList,
+          { userName: userName, gamesPlayed: gamesPlayed }
+        ]
+      }));
+    } else {
+      this.setState({ showErrorMessage: true });
+    }
+  };
+
   render() {
     return (
       <div className="App">
@@ -18,6 +53,13 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">ReactND - Coding Practice</h1>
         </header>
+
+        {/* <ToggleDisplay showGamesPlayed={this.state.showGamesPlayed} /> */}
+        <AddUser addNewUser={this.addNewUser} />
+        {/* <UserList
+          userList={this.state.userList}
+          showGamesPlayed={this.state.showGamesPlayed}
+        /> */}
       </div>
     );
   }
