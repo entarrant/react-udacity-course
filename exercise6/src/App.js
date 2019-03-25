@@ -38,11 +38,7 @@ class App extends React.Component {
           deleteLastItem={this.deleteLastItem}
           noItemsFound={this.noItemsFound}
         />
-
-        <p className="items">Items</p>
-        <ol className="item-list">
-          {this.state.items.map((item, index) => <li key={index}>{item}</li>)}
-        </ol>
+        <ShoppingList items={this.state.items} />
       </div>
     );
   }
