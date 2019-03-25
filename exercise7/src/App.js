@@ -39,7 +39,8 @@ class App extends Component {
         userList: [
           ...previousState.userList,
           { userName: userName, gamesPlayed: gamesPlayed }
-        ]
+        ],
+        showErrorMessage: false
       }));
     } else {
       this.setState({ showErrorMessage: true });
@@ -52,6 +53,15 @@ class App extends Component {
     }));
   };
 
+  renderError = () => {
+    return (
+      <p className="error">
+        A user with that username already exists. Please try submitting another
+        name.
+      </p>
+    );
+  };
+
   render() {
     return (
       <div className="App">
@@ -59,6 +69,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">ReactND - Coding Practice</h1>
         </header>
+        {this.state.showErrorMessage && this.renderError()}
 
         <ToggleDisplay
           toggleView={this.toggleView}
