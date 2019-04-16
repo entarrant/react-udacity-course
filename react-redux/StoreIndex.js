@@ -41,12 +41,51 @@ function createStore(reducer) {
 }
 
 // App code
+
+// Todo actions
 const ADD_TODO = "ADD_TODO";
 const REMOVE_TODO = "REMOVE_TODO";
 const TOGGLE_TODO = "TOGGLE_TODO";
 
+// Goal actions
 const ADD_GOAL = "ADD_GOAL";
 const REMOVE_GOAL = "REMOVE_GOAL";
+
+// Todo action creators
+function addTodoAction(todo) {
+  return {
+    type: ADD_TODO,
+    todo
+  };
+}
+
+function removeTodoAction(id) {
+  return {
+    type: REMOVE_TODO,
+    id
+  };
+}
+
+function toggleTodoAction(id) {
+  return {
+    type: TOGGLE_TODO,
+    id
+  };
+}
+
+function addGoalAction(goal) {
+  return {
+    type: ADD_GOAL,
+    goal
+  };
+}
+
+function removeGoalAction(id) {
+  return {
+    type: REMOVE_GOAL,
+    id
+  };
+}
 
 function todos(state = [], action) {
   // A reducer function!
@@ -90,39 +129,10 @@ store.subscribe(() => {
   console.log("The new store is: ", store.getState());
 });
 
-store.dispatch({
-  type: ADD_TODO,
-  todo: {
-    id: 1,
-    name: "Learn Redux",
+store.dispatch(
+  addTodoAction({
+    id: 0,
+    name: "Walk the dog",
     complete: false
-  }
-});
-
-store.dispatch({
-  type: ADD_TODO,
-  todo: {
-    id: 2,
-    name: "Learn Redux",
-    complete: false
-  }
-});
-
-store.dispatch({
-  type: REMOVE_TODO,
-  id: 1
-});
-
-store.dispatch({
-  type: ADD_GOAL,
-  goal: {
-    id: 5,
-    name: "Learn Redux",
-    complete: false
-  }
-});
-
-store.dispatch({
-  type: REMOVE_GOAL,
-  id: 5
-});
+  })
+);
