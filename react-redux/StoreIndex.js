@@ -1,13 +1,3 @@
-// App code
-function todos(state = [], action) {
-  // A reducer function!
-  if (action.type === "ADD_TODO") {
-    return state.concat([action.todo]);
-  }
-
-  return state;
-}
-
 // Library Code
 function createStore(reducer) {
   /* The store should have four parts:
@@ -49,3 +39,28 @@ function createStore(reducer) {
     dispatch
   };
 }
+
+// App code
+function todos(state = [], action) {
+  // A reducer function!
+  if (action.type === "ADD_TODO") {
+    return state.concat([action.todo]);
+  }
+
+  return state;
+}
+
+// Store has getState, subscribe, and dispatch defined on it
+const store = createStore(todos);
+store.subscribe(() => {
+  console.log("The new store is: ", store.getState());
+});
+
+store.dispatch({
+  type: "ADD_TODO",
+  todo: {
+    id: 0,
+    name: "Learn Redux",
+    complete: false
+  }
+});
