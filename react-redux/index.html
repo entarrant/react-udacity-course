@@ -5,21 +5,35 @@
   </head>
 
   <body>
+    <div>
+      <h1>Todo List</h1>
+      <input id="todo" type="text" placeholder="Add Todo" />
+      <button id="todo-btn">Add Todo</button>
+      <ul id="todos"></ul>
+    </div>
+
+    <div>
+      <h1>Goals List</h1>
+      <input id="goal" type="text" placeholder="Add Goal" />
+      <button id="goal-btn">Add Goal</button>
+      <ul id="goals"></ul>
+    </div>
+
     <script type="text/javascript">
       // Library Code
       function createStore(reducer) {
         /* The store should have four parts:
-     Manage the state
-     Get the state
-     Listen to changes on the state
-     Update the state
+          Manage the state
+          Get the state
+          Listen to changes on the state
+          Update the state
 
-     Only an event can change the state of the store
-     The function (a reducer) that returns the new state needs to be a pure function
-      - Returns the same result if the same arguments are passed in
-      - Depends solely on the arguments passed in to them (doesn't use variables outside its scope)
-      - Does not produce any side effects
-  */
+          Only an event can change the state of the store
+          The function (a reducer) that returns the new state needs to be a pure function
+            - Returns the same result if the same arguments are passed in
+            - Depends solely on the arguments passed in to them (doesn't use variables outside its scope)
+            - Does not produce any side effects
+        */
 
         let state;
         let listeners = [];
