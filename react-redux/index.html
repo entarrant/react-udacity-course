@@ -156,8 +156,16 @@
       // Store has getState, subscribe, and dispatch defined on it
       const store = createStore(app);
       store.subscribe(() => {
-        console.log("The new store is: ", store.getState());
+        const { goals, todos } = store.getState();
+
+        document.getElementById("goals").innerHTML = "";
+        document.getElementById("todos").innerHTML = "";
+
+        goals.forEach(addGoalToDom);
+        todos.forEach(addTodoToDom);
       });
+
+      // DOM code
 
       function addTodo() {
         const input = document.getElementById("todo");
@@ -189,6 +197,22 @@
       document.getElementById("todo-btn").addEventListener("click", addTodo);
 
       document.getElementById("goal-btn").addEventListener("click", addGoal);
+
+      function addTodoToDom(todo) {
+        const node = document.createElement("li");
+        const text = document.createTextNode(todo.name);
+        node.appendChild(text);
+
+        document.getElementById("todos").appendChild(node);
+      }
+
+      function addGoalToDom(goal) {
+        const node = document.createElement("li");
+        const text = document.createTextNode(goal.name);
+        node.appendChild(text);
+
+        document.getElementById("goals").appendChild(node);
+      }
 
       // store.dispatch(
       //   addTodoAction({
