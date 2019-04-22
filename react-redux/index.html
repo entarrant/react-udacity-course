@@ -198,10 +198,23 @@
 
       document.getElementById("goal-btn").addEventListener("click", addGoal);
 
+      function createRemoveButton(onClick) {
+        const removeBtn = document.createElement("button");
+        removeBtn.innerHTML = "X";
+        removeBtn.addEventListener("click", onClick);
+        return removeBtn;
+      }
+
       function addTodoToDom(todo) {
         const node = document.createElement("li");
         const text = document.createTextNode(todo.name);
+
+        const removeBtn = createRemoveButton(() => {
+          store.dispatch(removeTodoAction(todo.id));
+        });
+
         node.appendChild(text);
+        node.appendChild(removeBtn);
         node.style.textDecoration = todo.complete ? "line-through" : "none";
         node.addEventListener("click", () => {
           store.dispatch(toggleTodoAction(todo.id));
@@ -215,16 +228,13 @@
         const text = document.createTextNode(goal.name);
         node.appendChild(text);
 
+        const removeBtn = createRemoveButton(() => {
+          store.dispatch(removeGoalAction(goal.id));
+        });
+
+        node.appendChild(removeBtn);
         document.getElementById("goals").appendChild(node);
       }
-
-      // store.dispatch(
-      //   addTodoAction({
-      //     id: 0,
-      //     name: "Walk the dog",
-      //     complete: false
-      //   })
-      // );
     </script>
   </body>
 </html>
