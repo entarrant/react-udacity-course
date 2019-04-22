@@ -20,6 +20,14 @@
     </div>
 
     <script type="text/javascript">
+      function generateId() {
+        return (
+          Math.random()
+            .toString(36)
+            .substring(2) + new Date().getTime().toString(36)
+        );
+      }
+
       // Library Code
       function createStore(reducer) {
         /* The store should have four parts:
@@ -151,13 +159,44 @@
         console.log("The new store is: ", store.getState());
       });
 
-      store.dispatch(
-        addTodoAction({
-          id: 0,
-          name: "Walk the dog",
-          complete: false
-        })
-      );
+      function addTodo() {
+        const input = document.getElementById("todo");
+        const name = input.value;
+        input.value = "";
+
+        store.dispatch(
+          addTodoAction({
+            id: generateId(),
+            name,
+            complete: false
+          })
+        );
+      }
+
+      function addGoal(goal) {
+        const input = document.getElementById("goal");
+        const name = input.value;
+        input.value = "";
+
+        store.dispatch(
+          addGoalAction({
+            id: generateId(),
+            name
+          })
+        );
+      }
+
+      document.getElementById("todo-btn").addEventListener("click", addTodo);
+
+      document.getElementById("goal-btn").addEventListener("click", addGoal);
+
+      // store.dispatch(
+      //   addTodoAction({
+      //     id: 0,
+      //     name: "Walk the dog",
+      //     complete: false
+      //   })
+      // );
     </script>
   </body>
 </html>
