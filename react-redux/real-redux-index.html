@@ -125,13 +125,25 @@
         return next(action);
       };
 
+      const logger = store => next => action => {
+        console.group(action.type);
+
+        console.log("The action: ", action);
+        const nextAction = next(action);
+        console.log("The new state is: ", store.getState());
+
+        console.groupEnd();
+
+        return nextAction;
+      };
+
       // Store has getState, subscribe, and dispatch defined on it
       const store = Redux.createStore(
         Redux.combineReducers({
           todos,
           goals
         }),
-        Redux.applyMiddleware(checker)
+        Redux.applyMiddleware(checker, logger)
       );
 
       store.subscribe(() => {
