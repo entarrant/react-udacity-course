@@ -132,6 +132,16 @@
         };
       }
 
+      function handleInitialData() {
+        return dispatch => {
+          Promise.all([API.fetchTodos(), API.fetchGoals()]).then(
+            ([todos, goals]) => {
+              dispatch(receiveDataAction(todos, goals));
+            }
+          );
+        };
+      }
+
       function todos(state = [], action) {
         // A reducer function!
         switch (action.type) {
@@ -312,11 +322,8 @@
         componentDidMount() {
           const { store } = this.props;
 
-          Promise.all([API.fetchTodos(), API.fetchGoals()]).then(
-            ([todos, goals]) => {
-              store.dispatch(receiveDataAction(todos, goals));
-            }
-          );
+          store.dispatch(handleInitialData());
+
           // forceUpdate is an anti-pattern and should almost never be used!
           store.subscribe(() => this.forceUpdate());
         }
