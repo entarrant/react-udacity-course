@@ -88,6 +88,28 @@
         };
       }
 
+      function handleAddGoal(name, callback) {
+        return dispatch => {
+          API.saveGoal(name)
+            .then(goal => {
+              dispatch(addGoalAction(goal));
+
+              callback();
+            })
+            .catch(() => alert("An error occurred! Try again."));
+        };
+      }
+
+      function handleDeleteGoal(goal) {
+        return dispatch => {
+          dispatch(removeGoalAction(goal.id));
+          API.deleteGoal(goal.id).catch(() => {
+            dispatch(addGoalAction(goal));
+            alert("An error occurred! Try again.");
+          });
+        };
+      }
+
       function todos(state = [], action) {
         // A reducer function!
         switch (action.type) {
@@ -243,21 +265,15 @@
         addItem = event => {
           event.preventDefault();
 
-          API.saveGoal(this.input.value)
-            .then(goal => {
-              this.props.store.dispatch(addGoalAction(goal));
-
+          this.props.store.dispatch(
+            handleAddGoal(this.input.value, () => {
               this.input.value = "";
             })
-            .catch(() => alert("An error occurred! Try again."));
+          );
         };
 
         removeItem = goal => {
-          this.props.store.dispatch(removeGoalAction(goal.id));
-          API.deleteGoal(goal.id).catch(() => {
-            this.props.store.dispatch(addGoalAction(goal));
-            alert("An error occurred! Try again.");
-          });
+          this.props.store.dispatch(handleDeleteGoal(goal));
         };
 
         render() {
