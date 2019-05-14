@@ -4,10 +4,15 @@ import { formatTweet } from "../utils/helpers";
 
 class Tweet extends Component {
   render() {
-    console.log(this.props);
+    const { tweet } = this.props;
+
+    if (tweet === null) {
+      return <p>This tweet does not exist!</p>;
+    }
+
     return (
       <div className="tweet">
-        <h3>Tweet!</h3>
+        <h3>Tweet {tweet.id}</h3>
       </div>
     );
   }
@@ -15,10 +20,13 @@ class Tweet extends Component {
 
 function mapStateToProps({ authUser, users, tweets }, { id }) {
   const tweet = tweets[id];
+  const parentTweet = tweet ? tweets[tweet.replyingTo] : null;
 
   return {
     authUser,
-    tweet: formatTweet(tweet, users[tweet.author], authUser)
+    tweet: tweet
+      ? formatTweet(tweet, users[tweet.author], authUser, parentTweet)
+      : null
   };
 }
 
