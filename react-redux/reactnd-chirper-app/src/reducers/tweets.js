@@ -21,7 +21,7 @@ export default function tweets(state = {}, action) {
       const { tweet } = action;
 
       let replyingTo = {};
-      if (tweet.replyingTo != null) {
+      if (tweet.replyingTo !== null) {
         replyingTo = {
           [tweet.replyingTo]: {
             ...state[tweet.replyingTo],
